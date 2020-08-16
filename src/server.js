@@ -9,17 +9,30 @@ const PORT = process.env.PORT || 3001;
 connectDB();
 
 const corsOptions = {
-  origin: ['https://master.d2lqi2ajg5lzsh.amplifyapp.com', 'https://localhost:3000'],
+  origin: [
+    'https://master.d2lqi2ajg5lzsh.amplifyapp.com',
+    'https://localhost:3000',
+  ],
   default: 'https://master.d2lqi2ajg5lzsh.amplifyapp.com',
   optionsSuccessStatus: 200,
   credentials: true,
 };
 
 app.all('*', (req, res, next) => {
-  const origin = corsOptions.origin.indexOf(req.header('origin').toLowerCase()) > -1 ? req.headers.origin : cors.default;
-  res.header('Access-Control-Allow-Origin', origin);
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
+  try {
+    const origin = corsOptions.origin.indexOf(req.header('origin').toLowerCase()) > -1
+      ? req.headers.origin
+      : cors.default;
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept',
+    );
+    next();
+  } catch (error) {
+    console.log(error);
+    res.json({ msg: 'CORS policy does not allow you to access the API' });
+  }
 });
 
 // Init middleware

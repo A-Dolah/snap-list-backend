@@ -1,0 +1,7 @@
+{
+  "extends": "salt",
+  "rules": {
+    "no-console": "off",
+    "consistent-return": "off"
+  }
+}

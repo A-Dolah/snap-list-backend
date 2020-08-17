@@ -6,7 +6,7 @@ require('dotenv').config();
 const router = express.Router();
 
 // @route    POST '/api/ingredients'
-// @desc     Register user
+// @desc     Make call to Clarifai API
 // @access   Public
 router.post(
   '/',
